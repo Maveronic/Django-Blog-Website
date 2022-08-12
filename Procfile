@@ -1,0 +1,1 @@
+web: gunicorn meso_project.wsgi
