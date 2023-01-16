@@ -9,14 +9,10 @@ from django.views.generic import (
 from .models import Post
 
 
-# def home(request):
-# 	context = {
-# 		'posts': Post.objects.all()
-# 	}
-# 	return render(request, 'blog/home.html', context)
-
-
 class PostListView(ListView):
+	"""
+	This class-based view lists out the posts made by users of the site and paginates them by 5
+	"""
 	model = Post
 	template_name = 'blog/home.html'
 	context_object_name = 'posts'
@@ -25,10 +21,16 @@ class PostListView(ListView):
 
 
 class PostDetailView(DetailView):
+	"""
+	This class-based view when called, gives an output of a specific post.
+	"""
 	model = Post
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
+	"""
+	This class-based view is used to create a new post. It takes into consideration the validity of the form.
+	"""
 	model = Post
 	fields = ['title', 'content']
 
@@ -38,6 +40,11 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+	"""
+	This class-based view is used to update a specific post of the website user with an account.
+	It has security measures in place to ensure the user is logged in,
+	the post is from his own account before an update can be made.
+	"""
 	model = Post
 	fields = ['title', 'content']
 
@@ -53,6 +60,12 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+	"""
+	This class-based view is used tp delete a specific post of the website user with an account.
+	It has security measures in place to ensure the user is logged in,
+	the post is from his own account before the post can be deleted.
+	
+	"""
 	model = Post
 	success_url = '/'
 
@@ -64,4 +77,5 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 def about(request):
+	# This view renders the About page of the website
 	return render(request, 'blog/about.html', {'title': 'About'})
