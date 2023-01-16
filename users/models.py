@@ -4,6 +4,10 @@ from PIL import Image
 
 
 class Profile(models.Model):
+    """
+    The Profile model is used to create new profiles.
+    After a profile has been created, a signal is sent to update the database.
+    """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
 
