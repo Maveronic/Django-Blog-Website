@@ -5,6 +5,10 @@ from django.contrib.auth.decorators import login_required
 
 
 def register(request):
+	"""
+	This function-based view is used to create a form which a user in turn,
+	uses to register into the website database.
+	"""
 	if request.method == 'POST':
 		form = UserRegisterForm(request.POST)
 		if form.is_valid():
@@ -19,6 +23,10 @@ def register(request):
 
 @login_required
 def profile(request):
+	"""
+	The fucntion-based view is used to update the profile of a user.
+	Security measure is put in place to ensure is logged before any change can be made to the profile.
+	""""
 	if request.method == 'POST':
 		u_form = UserUpdateForm(request.POST, instance=request.user)
 		p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
