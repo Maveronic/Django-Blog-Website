@@ -5,6 +5,9 @@ from django.urls import reverse
 
 
 class Post(models.Model):
+	"""
+	A post model which contains fields through a user can create new posts.
+	"""
 	title = models.CharField(max_length=100)
 	content = models.TextField()
 	date_posted = models.DateTimeField(default=timezone.now)
